@@ -1,4 +1,5 @@
 import { 
+    LOGOUT,
     SET_USER_INFO
  } from '../types/auth.types';
 
@@ -18,6 +19,8 @@ import {
                 user: payload.user,
                 token: { token: payload.token, expires: payload.expires }
             }
+        case LOGOUT:
+            return { ...INITIAL_STATE };
         default:
             return state;    
     }

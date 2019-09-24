@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { View, StyleSheet, TouchableOpacity, Text, FlatList, Image } from 'react-native';
-import { List, ListItem, SearchBar } from "react-native-elements";
+import { TouchableOpacity, FlatList } from 'react-native';
+import { colors } from '../styles/base';
 
 class MyListItem extends React.PureComponent {
 
@@ -13,16 +13,20 @@ class MyListItem extends React.PureComponent {
   render() {
     const { item } = this.props;
     return (
-      <TouchableOpacity onPress={this.press}>
-          <ListItem
-            title={item.title}
-          />
+      <TouchableOpacity onPress={() => this.press(item.survey_id)}>
+          <Item>
+            <Inline>
+              <PollTitle>{item.name}</PollTitle>
+              <PollVotes>{item.total_votes !== null ? item.total_votes : 0}</PollVotes>
+            </Inline>
+            <PollDate>{item.created}</PollDate>
+          </Item>
       </TouchableOpacity>
     )
   }
 }
 
-class BasicFlatList extends React.Component {
+class PollsList extends React.Component {
 
   static propTypes = {
       items: PropTypes.array.isRequired,
@@ -35,14 +39,13 @@ class BasicFlatList extends React.Component {
   }
 
   handleLoadMore = () => {
-    console.log('end');
     if (typeof this.props.loadMore === 'undefined') {
       return;
     }
     this.props.loadMore();
   }
 
-  _keyExtractor = (item, index) => item.userId;
+  _keyExtractor = (item) => item.survey_id;
 
   _renderItem = ({item}) => (
     <MyListItem
@@ -64,4 +67,32 @@ class BasicFlatList extends React.Component {
   }
 }
 
-export default BasicFlatList;
+const Item = styled.View`
+  flex: 1;
+  paddingVertical: 10;
+  borderBottomWidth: 1;
+  borderColor: #ededed;
+`;
+
+const Inline = styled.View`
+  flex: 1;
+  flexDirection: row;
+  justifyContent: space-between;
+`;
+
+const PollTitle = styled.Text`
+  color: ${colors.black};
+  fontSize: 13;
+`;
+
+const PollVotes = styled.Text`
+  color: ${colors.black};
+  fontSize: 12;
+`;
+
+const PollDate = styled.Text`
+  color: red;
+  fontSize: 12;
+`;
+
+export default PollsList;

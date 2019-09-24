@@ -14,7 +14,7 @@ class SplashScreen extends React.Component {
 
     render() {
         return (
-            <LoadingIndicator backgroundColor="#000" />
+            <LoadingIndicator />
         );
     }
 }

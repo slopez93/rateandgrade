@@ -37,7 +37,8 @@ export const fonts = {
       },
       content: {
         flex: 1,
-        marginHorizontal: 15
+        marginHorizontal: 15,
+        marginTop: 15
       }
   }
 

@@ -34,7 +34,6 @@ export default class Api {
 
   async post(url, body) {
     const headers = this.getHeaders();
-    console.log(SERVER_URL + url);
     const response = await fetch(SERVER_URL + url, {
       method: 'POST',
       headers: headers,
@@ -60,7 +59,7 @@ export default class Api {
     const token = storeData.auth.token;
     const headers = {};
     
-    //headers['X-Requested-With'] = 'XMLHttpRequest';
+    console.log(storeData);
     headers['Content-Type'] = 'application/json';
     
     if (token !== null) {

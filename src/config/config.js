@@ -1,1 +1,1 @@
-export const SERVER_URL = 'https://beta.rateandgrade.com/';
+export const SERVER_URL = 'https://beta.yeswerate.com/v1.0/';

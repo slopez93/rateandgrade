@@ -18,7 +18,7 @@ const Container = styled.View`
   alignItems: center;
   justifyContent: center;
   zIndex: 20;
-  backgroundColor: ${colors.white};
+  backgroundColor: rgba(255,255,255, 0.8);
 `;
 
 

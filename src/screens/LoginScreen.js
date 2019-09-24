@@ -7,7 +7,10 @@ import {
 import { connect } from 'react-redux';
 import TextInput from '../components/TextInput';
 import createStyles from '../styles/base';
+// services
+import AlertService from '../services/alert.service';
 // actions
+import { showLoading, hideLoading } from '../redux/actions/loading.actions';
 import { login } from '../redux/actions/auth.actions';
 
 class LoginScreen extends React.Component {
@@ -16,8 +19,8 @@ class LoginScreen extends React.Component {
         super(props);
 
         this.state = {
-            username: '',
-            password: ''
+            username: 'santiagolopezbayo@rateandgrade.com',
+            password: 'yeswerate'
         }
     }
 
@@ -26,7 +29,7 @@ class LoginScreen extends React.Component {
     }
 
     submitForm = () => {
-        console.log(this.state);
+        this.props.showLoading();
         const { username, password } = this.state;
         this.props.login({ username, password }, this.onSuccess, this.onError);
     }
@@ -36,7 +39,11 @@ class LoginScreen extends React.Component {
     }
 
     onError = () => {
-        console.log('error');
+        this.props.hideLoading();
+        AlertService.instance.showAlert(
+            'Ups!',
+            'Usuario  o contraseña incorrectos'
+        );
     }
 
     render() {
@@ -65,6 +72,8 @@ class LoginScreen extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+    showLoading: () => dispatch(showLoading()),
+    hideLoading: () => dispatch(hideLoading()),
     login: ({username, password}, onSuccess, onError) => dispatch(login({username, password}, onSuccess, onError))
 });
 

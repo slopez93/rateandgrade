@@ -1,22 +1,17 @@
-import { put, call, fork, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import { LOGIN } from '../types/auth.types';
 // actions
-import { setUserInfo, setToken } from '../actions/auth.actions';
+import { setUserInfo } from '../actions/auth.actions';
 // service
-import { fakeLogin } from '../../services/fake.api';
 import AuthService from '../../services/auth.service';
 
 function* login(action) {
-    console.log(action);
     const { username, password, onSuccess, onError } = action.payload;
     try {
-        // const response = yield call([AuthService.instance, AuthService.instance.login], username, password );
-        const response = yield call(fakeLogin);
-        console.log(response);
-        onSuccess();
+        const response = yield call([AuthService.instance, AuthService.instance.login], username, password );
         yield put(setUserInfo(response));
+        onSuccess();
     } catch (e) {
-        console.log(e);
         onError();
     }
 }
